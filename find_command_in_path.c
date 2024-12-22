@@ -18,7 +18,15 @@ return -1;
 }
 path = strtok(path_copy, ":");
 while (path != NULL) {
-snprintf(full_path, sizeof(full_path), "%s/%s", path, cmd);
+full_path[0] = '\0';
+if (strlen(path) + strlen(cmd) + 2 > MAX_PATH_LEN) {
+fprintf(stderr, "Path too long\n");
+free(path_copy);
+return -1;
+}
+strcpy(full_path, path);
+strcat(full_path, "/");
+strcat(full_path, cmd);
 if (access(full_path, X_OK) == 0) {
 free(path_copy);
 if (execve(full_path, argv, environ) == -1) {
