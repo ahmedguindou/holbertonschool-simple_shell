@@ -1,13 +1,11 @@
 #include "shell.h"
 
 extern char **environ;
-char *_getenv(const char *name)
-{
+char *_getenv(const char *name) {
+int i = 0;
 size_t name_len = strlen(name);
-for (int i = 0; environ[i] != NULL; i++)
-{
-if (strncmp(environ[i], name, name_len) == 0 && environ[i][name_len] == '=')
-{
+for (i = 0; environ[i] != NULL; i++) {
+if (strncmp(environ[i], name, name_len) == 0 && environ[i][name_len] == '=') {
 return &environ[i][name_len + 1];
 }
 }
