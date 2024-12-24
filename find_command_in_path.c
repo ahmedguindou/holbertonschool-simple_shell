@@ -1,14 +1,10 @@
 #include "shell.h"
 #define MAX_PATH_LEN 1024
-
-extern char **environ;
-
 /**
  * get_full_path - Constructs the full path of a command
  * @path: Current directory from PATH
  * @cmd: Command to locate
  * @full_path: Buffer to store the full path
- *
  * Return: 0 on success, -1 if the path is too long
  */
 int get_full_path(const char *path, const char *cmd, char *full_path)
@@ -28,7 +24,6 @@ return (0);
  * execute_full_path - Executes a command if found
  * @full_path: Full path to the command
  * @argv: Arguments for the command
- *
  * Return: 0 if executed, -1 otherwise
  */
 int execute_full_path(const char *full_path, char **argv)
@@ -48,7 +43,6 @@ return (-1);
  * find_command_in_path - Finds and executes a command in the PATH
  * @cmd: Command to locate
  * @argv: Array of arguments for the command
- *
  * Return: 0 if successful, -1 otherwise
  */
 int find_command_in_path(char *cmd, char **argv)

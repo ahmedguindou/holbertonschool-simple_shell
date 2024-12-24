@@ -23,7 +23,7 @@ Your shell will be compiled on Ubuntu 20.04 LTS using:
 
 ``` gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh ```
 
-## Allowed functions 
+## Allowed functions
 
 ### List of allowed functions and system calls+
 
@@ -83,8 +83,8 @@ All functions from string.h.
 
 Your shell should work like this in interactive mode :
 
-``` 
-root@id:/holbertonschool-simple_shell# ./hsh   
+```
+root@id:/holbertonschool-simple_shell# ./hsh
 $ /bin/ls
 $ hsh main.c shell.c
 $ exit
@@ -120,6 +120,6 @@ root@id:/holbertonschool-simple_shell#
 
 ## Authors :writing_hand:
 
-This README file, along with the entirety of this project, was made by : 
+This README file, along with the entirety of this project, was made by :
 - **[Ahmed Guindou](https://github.com/ahmedguindou)**
 - **[Rassil jdidi](https://github.com/jdidi422)**
