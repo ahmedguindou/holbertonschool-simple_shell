@@ -8,15 +8,22 @@ void get_line(char **line)
 size_t bufsize = 1024;
 size_t len;
 *line = (char *)malloc(bufsize * sizeof(char));
+if (*line == NULL)
+{
+perror("malloc failed");
+exit(1);
+}
 printf("$ ");
 if (getline(line, &bufsize, stdin) == -1)
 {
 if (feof(stdin))
 {
 printf("\nExiting...\n");
+free(*line);
 exit(0);
 }
 perror("getline failed");
+free(*line);
 exit(1);
 }
 len = strlen(*line);

@@ -19,7 +19,8 @@ free(line);
 exit(0);
 }
 execute_command(argv);
-}
 free(line);
+line = NULL;
+}
 return (0);
 }
