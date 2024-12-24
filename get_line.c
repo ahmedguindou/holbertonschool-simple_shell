@@ -15,15 +15,9 @@ exit(1);
 }
 if (getline(line, &bufsize, stdin) == -1)
 {
-if (feof(stdin))
-{
 printf("\nExiting...\n");
 free(*line);
 exit(0);
-}
-perror("getline failed");
-free(*line);
-exit(1);
 }
 len = strlen(*line);
 if ((*line)[len - 1] == '\n')
