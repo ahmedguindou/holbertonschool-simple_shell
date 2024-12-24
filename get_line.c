@@ -13,7 +13,6 @@ if (*line == NULL)
 perror("malloc failed");
 exit(1);
 }
-printf("$ ");
 if (getline(line, &bufsize, stdin) == -1)
 {
 if (feof(stdin))
