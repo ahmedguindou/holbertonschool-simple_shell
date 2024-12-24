@@ -5,6 +5,7 @@
  * Return: Pointer to the value of
  * the environment variable, or NULL if not found
  */
+extern char **environ;
 char *_getenv(const char *name)
 {
 int i = 0;

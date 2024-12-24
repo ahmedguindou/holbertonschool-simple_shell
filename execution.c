@@ -3,6 +3,7 @@
  * execute_command - Forks a child process and executes a command
  * @argv: Array of arguments for the command
  */
+extern char **environ;
 void execute_command(char **argv)
 {
 pid_t pid = fork();
