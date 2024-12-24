@@ -9,6 +9,7 @@ char *line = NULL;
 char *argv[64];
 while (1)
 {
+if (isatty(fileno(stdin)))
 printf("($) ");
 get_line(&line);
 parse_line(line, argv);
