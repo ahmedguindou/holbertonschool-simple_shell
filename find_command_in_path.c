@@ -1,5 +1,6 @@
 #include "shell.h"
 #define MAX_PATH_LEN 1024
+
 /**
  * get_full_path - Constructs the full path of a command
  * @path: Current directory from PATH
