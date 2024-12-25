@@ -13,7 +13,6 @@ char *path_env = _getenv("PATH");
 char *path_copy;
 char *path;
 char full_path[MAX_PATH_LEN];
-
 if (!path_env)
 {
 fprintf(stderr, "PATH not found\n");

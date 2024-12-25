@@ -11,7 +11,11 @@ while (1)
 {
 if (isatty(STDIN_FILENO))
 printf("($) ");
-get_line(&line);
+if (get_line(&line) == -1)
+{
+free(line);
+break;
+}
 parse_line(line, argv);
 if (argv[0] != NULL && strcmp(argv[0], "exit") == 0)
 {

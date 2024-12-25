@@ -7,7 +7,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-void get_line(char **line);
+int get_line(char **line);
 void parse_line(char *line, char **argv);
 char *_getenv(const char *name);
 int find_command_in_path(char *cmd, char **argv);
