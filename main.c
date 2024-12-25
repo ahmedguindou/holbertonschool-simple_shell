@@ -1,29 +1,51 @@
+#define _GNU_SOURCE
+
 #include "shell.h"
+
 /**
- * main - Entry point for the shell program
- * Return: 0 on success
+ * main - program that mimic a super simple shell)
+ *
+ * Return: 0
  */
 int main(void)
 {
-char *line = NULL;
-char *argv[64];
-while (1)
-{
-if (isatty(STDIN_FILENO))
-printf("($) ");
-if (get_line(&line) == -1)
-{
-free(line);
-break;
+	char *line = NULL;
+
+	while (1)
+	{
+		if (isatty(STDIN_FILENO) == 1)
+		{
+			printf("$ ");
+			fflush(stdout);
+		}
+
+		line = read_line();
+		split_line(line);
+		free(line);
+	}
+	return (0);
 }
-parse_line(line, argv);
-if (argv[0] != NULL && strcmp(argv[0], "exit") == 0)
+
+/**
+ * read_line - function to read the user inputs
+ * @void
+ *
+ * Return: char
+ */
+
+char *read_line(void)
 {
-free(line);
-exit(0);
-}
-execute_command(argv);
-free(line);
-}
-return (0);
+	char *line = NULL;
+	ssize_t bytes_read;
+	size_t buff_size = 0;
+
+	bytes_read = getline(&line, &buff_size, stdin);
+	if (bytes_read == EOF)
+	{
+		free(line);
+		exit(0);
+	}
+	if (bytes_read > 0 && line[bytes_read - 1] == '\n')
+		line[bytes_read - 1] = '\0';
+	return (line);
 }

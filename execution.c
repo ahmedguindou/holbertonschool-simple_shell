@@ -3,37 +3,42 @@
  * execute_command - Forks a child process and executes a command
  * @argv: Array of arguments for the command
  */
-extern char **environ;
-void execute_command(char **argv)
+void execute_command(char *argv[], char *line)
 {
-pid_t pid = fork();
-if (pid == -1)
-{
-perror("fork failed");
-return;
-}
-if (pid == 0)
-{
-char *cmd = argv[0];
-if (cmd[0] == '/' || cmd[0] == '.')
-{
-if (execve(cmd, argv, environ) == -1)
-{
-perror("execve failed");
-exit(1);
-}
-}
-else
-{
-if (find_command_in_path(cmd, argv) == -1)
-{
-fprintf(stderr, "Command not found: %s\n", cmd);
-exit(1);
-}
-}
-}
-else
-{
-waitpid(pid, NULL, 0);
-}
+	int status, exit_status = 0;
+	pid_t child;
+
+	if (access(argv[0], X_OK) != 0)
+	{
+		fprintf(stderr, "./hsh: 1: %s: not found\n", argv[0]);
+		free(argv[0]);
+		exit(127);
+	}
+	child = fork();
+
+	if (child == -1)
+	{
+		perror("Fail Fork\n");
+		exit(0);
+	}
+	else if (child == 0)
+	{
+		execve(argv[0], argv, environ);
+		free(argv[0]);
+		exit(0);
+	}
+	else
+	{
+		wait(&status);
+		if (WIFEXITED(status))
+		{
+			exit_status = WEXITSTATUS(status);
+			if (exit_status != 0)
+			{
+				free(argv[0]);
+				free(line);
+				exit(2);
+			}
+		}
+	}
 }

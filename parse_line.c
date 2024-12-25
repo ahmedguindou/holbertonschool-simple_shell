@@ -1,19 +1,52 @@
 #include "shell.h"
+
 /**
- * parse_line - Splits a line of input into arguments
- * @line: The input line to split
- * @argv: Array to store the split arguments
+ * split_line - split line corresponding
+ * to the user input
+ * @line: char*
+ *
+ * Return: char (tokens)
  */
-void parse_line(char *line, char **argv)
+void split_line(char *line)
 {
-char *token;
-int i = 0;
-token = strtok(line, " ");
-while (token != NULL)
-{
-argv[i] = token;
-i++;
-token = strtok(NULL, " ");
-}
-argv[i] = NULL;
+	int position = 0;
+	char *tokens[1024] = {NULL};
+	char *token = NULL;
+
+	token = strtok(line, " \t");
+	while (token != NULL)
+	{
+		if (strlen(token) > 0)
+		{
+			tokens[position] = token;
+			position++;
+		}
+		token = strtok(NULL, " \t");
+	}
+	if (tokens[0] == NULL)
+	{
+		return;
+	}
+	if (strcmp(tokens[0], "exit") == 0 && tokens[1] == NULL)
+	{
+		free(tokens[0]);
+		exit(0);
+	}
+	if (strcmp(tokens[0], "env") == 0)
+	{
+		_printenv();
+		return;
+	}
+	token = strdup(tokens[0]);
+	tokens[0] = get_path(token);
+	if (tokens[0] != NULL)
+	{
+		free(token);
+		execute_command(tokens, line);
+		free(tokens[0]);
+		return;
+	}
+	fprintf(stderr, "./hsh: 1: %s: not found\n", token);
+	free(token);
+	exit(127);
 }
