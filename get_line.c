@@ -1,16 +1,19 @@
 #include "shell.h"
 /**
- * get_line - Reads a line of input from stdin
- * @line: Pointer to the buffer to store the input
- */
-int _printenv(void)
+* get_line - Prints the environment variables to stdout
+*
+* Description: Iterates through the environment variables
+* and prints each one on a new line.
+* Return: Always 0 (Success)
+*/
+int get_line(void)
 {
-	int i = 0;
+int i = 0;
 
-	while (environ[i] != NULL)
-	{
-		printf("%s\n", environ[i]);
-		i++;
-	}
-	return (0);
+while (environ[i] != NULL)
+{
+printf("%s\n", environ[i]);
+i++;
+}
+return (0);
 }
