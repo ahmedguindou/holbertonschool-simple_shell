@@ -1,29 +1,51 @@
+#define _GNU_SOURCE
 #include "shell.h"
+
 /**
- * main - Entry point for the shell program
- * Return: 0 on success
- */
+* main - entry point
+* Return: 0 on success
+*/
+
 int main(void)
 {
-char *line = NULL;
-char *argv[64];
-while (1)
-{
-if (isatty(STDIN_FILENO))
-printf("($) ");
-if (get_line(&line) == -1)
-{
-free(line);
-break;
-}
-parse_line(line, argv);
-if (argv[0] != NULL && strcmp(argv[0], "exit") == 0)
-{
-free(line);
-exit(0);
-}
-execute_command(argv);
-free(line);
-}
-return (0);
+	char *line = NULL;
+	char *args[MAX_ARGS];
+	size_t lineSize = 0;
+	ssize_t bytesRead;
+
+	while (1)
+	{
+		if (isatty(STDIN_FILENO))
+		{
+			printf("$ ");
+			fflush(stdout);
+		}
+		bytesRead = getline(&line, &lineSize, stdin);
+		if (bytesRead == EOF)
+		{
+			{
+				free(line);
+				exit(EXIT_SUCCESS);
+			}
+			free(line);
+			perror("Error");
+			continue;
+
+		}
+		line[bytesRead - 1] = '\0';
+		tokenize(line, args, MAX_ARGS);
+		tokenize(line, args, MAX_ARGS);
+		if (args[0] != NULL)
+		{
+			if (strcmp(args[0], "exit") == 0)
+			{
+				free(line);
+				exit(EXIT_SUCCESS);
+			}
+			exec(args);
+		}
+		memset(args, 0, sizeof(args));
+	}
+	free(line);
+	return (0);
 }

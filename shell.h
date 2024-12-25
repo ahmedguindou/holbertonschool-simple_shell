@@ -1,15 +1,18 @@
 #ifndef SHELL_H
 #define SHELL_H
+#define MAX_ARGS 1024
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/wait.h>
+#include <sys/types.h>
 
-int get_line(char **line);
-void parse_line(char *line, char **argv);
-char *_getenv(const char *name);
-int find_command_in_path(char *cmd, char **argv);
-void execute_command(char **argv);
+void exec(char **args);
+extern char **environ;
+void tokenize(char *line, char *args[], size_t max_args);
+char *find_path(char *command);
+
 #endif
