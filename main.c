@@ -13,7 +13,7 @@ while (1)
 {
 if (isatty(STDIN_FILENO) == 1)
 {
-printf("$ ");
+printf("($) ");
 fflush(stdout);
 }
 

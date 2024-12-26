@@ -3,7 +3,6 @@
 * execute_command - Forks a child process and executes a command
 * @argv: Array of arguments for the command
 * @line: Pointer to the input line (for cleanup purposes)
-*
 * Description: This function checks if the command is executable,
 * forks a child process to execute it, and handles cleanup
 * and error reporting based on the child process's exit status.
@@ -14,14 +13,14 @@ int status;
 pid_t child;
 if (access(argv[0], X_OK) != 0)
 {
-fprintf(stderr, "./hsh: 1: %s: not found\n", argv[0]);
+fprintf(stderr, "%s: not found\n", argv[0]);
 free(argv[0]);
 exit(127);
 }
 child = fork();
 if (child == -1)
 {
-perror("Fail Fork\n");
+perror("Fail Fork");
 exit(0);
 }
 else if (child == 0)

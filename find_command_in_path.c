@@ -2,7 +2,6 @@
 /**
 * get_path - Finds the full path of a command
 * @command: The command to find in the PATH
-*
 * Description: This function checks if the command contains a '/'.
 * If it does, the command is returned directly. Otherwise, it searches
 * the PATH environment variable to find the command's full path.
