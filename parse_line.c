@@ -13,7 +13,7 @@ int i = 0;
 char *tokens[1024] = {NULL};
 char *token = NULL;
 
-token = strtok(line, " \t");
+token = strtok(line, ":");
 while (token != NULL)
 {
 if (strlen(token) > 0)
@@ -21,7 +21,7 @@ if (strlen(token) > 0)
 tokens[i] = token;
 i++;
 }
-token = strtok(NULL, " \t");
+token = strtok(NULL, ":");
 }
 if (tokens[0] == NULL)
 {
